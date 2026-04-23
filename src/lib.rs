@@ -99,6 +99,13 @@ pub mod thread;
 pub mod userdata;
 
 pub use bstr::BString;
+
+#[cfg(feature = "lua53_wasm")]
+extern crate ffi53_wasm as ffi;
+#[cfg(feature = "lua53_wasm")]
+pub use ffi::{lua_CFunction, lua_State};
+
+#[cfg(not(feature = "lua53_wasm"))]
 pub use ffi::{self, lua_CFunction, lua_State};
 
 #[doc(inline)]

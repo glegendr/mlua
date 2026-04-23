@@ -159,10 +159,22 @@ impl<'a> Debug<'a> {
 
     /// Corresponds to the `t` "what" mask. Returns true if the hook is in a function tail call,
     /// false otherwise.
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "lua52",
+        feature = "lua53_wasm"
+    ))]
     #[cfg_attr(
         docsrs,
-        doc(cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52")))
+        doc(cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua52",
+            feature = "lua53_wasm"
+        )))
     )]
     pub fn is_tail_call(&self) -> bool {
         unsafe {

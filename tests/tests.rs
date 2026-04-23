@@ -580,7 +580,12 @@ fn test_num_conversion() -> Result<()> {
 
     assert_eq!(lua.load("1.0").eval::<i64>()?, 1);
     assert_eq!(lua.load("1.0").eval::<f64>()?, 1.0);
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "lua53_wasm"
+    ))]
     assert_eq!(lua.load("1.0").eval::<String>()?, "1.0");
     #[cfg(any(feature = "lua52", feature = "lua51", feature = "luajit", feature = "luau"))]
     assert_eq!(lua.load("1.0").eval::<String>()?, "1");
@@ -610,7 +615,13 @@ fn test_num_conversion() -> Result<()> {
     assert!(negative_zero.is_sign_negative());
 
     // In Lua <5.3 all numbers are floats
-    #[cfg(not(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "luajit")))]
+    #[cfg(not(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "luajit",
+        feature = "lua53_wasm"
+    )))]
     {
         let negative_zero = lua.load("-0").eval::<f64>()?;
         assert_eq!(negative_zero, 0.0);
@@ -678,6 +689,7 @@ fn test_pcall_xpcall() -> Result<()> {
         feature = "lua55",
         feature = "lua54",
         feature = "lua53",
+        feature = "lua53_wasm",
         feature = "lua52",
         feature = "luajit"
     ))]
@@ -1179,6 +1191,7 @@ fn test_context_thread() -> Result<()> {
         feature = "lua55",
         feature = "lua54",
         feature = "lua53",
+        feature = "lua53_wasm",
         feature = "lua52",
         feature = "luajit52"
     ))]
@@ -1365,6 +1378,7 @@ fn test_inspect_stack() -> Result<()> {
         feature = "lua55",
         feature = "lua54",
         feature = "lua53",
+        feature = "lua53_wasm",
         feature = "lua52",
         feature = "luau"
     ))]

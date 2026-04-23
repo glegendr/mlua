@@ -45,6 +45,7 @@ fn test_module_error() -> Result<()> {
     feature = "lua55",
     feature = "lua54",
     feature = "lua53",
+    feature = "lua53_wasm",
     feature = "lua52",
     feature = "lua51"
 ))]
@@ -74,6 +75,7 @@ fn test_module_from_thread() -> Result<()> {
     feature = "lua55",
     feature = "lua54",
     feature = "lua53",
+    feature = "lua53_wasm",
     feature = "lua52",
     feature = "lua51"
 ))]

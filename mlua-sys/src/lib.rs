@@ -14,7 +14,7 @@ pub use lua55::*;
 #[cfg(any(feature = "lua54", doc))]
 pub use lua54::*;
 
-#[cfg(any(feature = "lua53", doc))]
+#[cfg(any(feature = "lua53", doc, feature = "lua53_wasm"))]
 pub use lua53::*;
 
 #[cfg(any(feature = "lua52", doc))]
@@ -26,7 +26,13 @@ pub use lua51::*;
 #[cfg(any(feature = "luau", doc))]
 pub use luau::*;
 
-#[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+#[cfg(any(
+    feature = "lua55",
+    feature = "lua54",
+    feature = "lua53",
+    feature = "lua52",
+    feature = "lua53_wasm"
+))]
 #[doc(hidden)]
 pub const LUA_MAX_UPVALUES: c_int = 255;
 
@@ -98,8 +104,8 @@ pub mod lua55;
 #[cfg_attr(docsrs, doc(cfg(feature = "lua54")))]
 pub mod lua54;
 
-#[cfg(any(feature = "lua53", doc))]
-#[cfg_attr(docsrs, doc(cfg(feature = "lua53")))]
+#[cfg(any(feature = "lua53", doc, feature = "lua53_wasm"))]
+#[cfg_attr(docsrs, doc(cfg(any(feature = "lua53", feature = "lua53_wasm"))))]
 pub mod lua53;
 
 #[cfg(any(feature = "lua52", doc))]

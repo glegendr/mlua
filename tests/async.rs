@@ -669,7 +669,12 @@ async fn test_async_hook() -> Result<()> {
     static HOOK_CALLED: AtomicBool = AtomicBool::new(false);
     lua.set_global_hook(mlua::HookTriggers::new().every_line(), move |_, _| {
         if !HOOK_CALLED.swap(true, Ordering::Relaxed) {
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua53_wasm"
+            ))]
             return Ok(mlua::VmState::Yield);
         }
         Ok(mlua::VmState::Continue)

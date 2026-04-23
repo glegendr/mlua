@@ -362,7 +362,13 @@ impl Function {
 
             #[cfg(any(feature = "lua51", feature = "luajit", feature = "luau"))]
             ffi::lua_getfenv(state, -1);
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua52",
+                feature = "lua53_wasm"
+            ))]
             for i in 1..=255 {
                 // Traverse upvalues until we find the _ENV one
                 match ffi::lua_getupvalue(state, -1, i) {
@@ -402,7 +408,13 @@ impl Function {
                 lua.push_ref(&env.0);
                 ffi::lua_setfenv(state, -2);
             }
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua52",
+                feature = "lua53_wasm"
+            ))]
             for i in 1..=255 {
                 match ffi::lua_getupvalue(state, -1, i) {
                     s if s.is_null() => return Ok(false),

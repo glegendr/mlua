@@ -141,7 +141,7 @@ pub(crate) unsafe fn pop_error(state: *mut ffi::lua_State, err_code: c_int) -> E
                     Error::RuntimeError(err_string)
                 }
                 ffi::LUA_ERRMEM => Error::MemoryError(err_string),
-                #[cfg(any(feature = "lua53", feature = "lua52"))]
+                #[cfg(any(feature = "lua53", feature = "lua52", feature = "lua53_wasm"))]
                 ffi::LUA_ERRGCMM => Error::GarbageCollectorError(err_string),
                 _ => mlua_panic!("unrecognized lua error code"),
             }
@@ -373,19 +373,55 @@ pub(crate) unsafe fn init_error_registry(state: *mut ffi::lua_State) -> Result<(
         "__mod",
         "__pow",
         "__unm",
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "luau"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "luau",
+            feature = "lua53_wasm"
+        ))]
         "__idiv",
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        ))]
         "__band",
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        ))]
         "__bor",
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        ))]
         "__bxor",
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        ))]
         "__bnot",
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        ))]
         "__shl",
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        ))]
         "__shr",
         "__concat",
         "__len",
@@ -400,11 +436,17 @@ pub(crate) unsafe fn init_error_registry(state: *mut ffi::lua_State) -> Result<(
             feature = "lua55",
             feature = "lua54",
             feature = "lua53",
+            feature = "lua53_wasm",
             feature = "lua52",
             feature = "luajit52"
         ))]
         "__pairs",
-        #[cfg(any(feature = "lua53", feature = "lua52", feature = "luajit52"))]
+        #[cfg(any(
+            feature = "lua53",
+            feature = "lua52",
+            feature = "luajit52",
+            feature = "lua53_wasm"
+        ))]
         "__ipairs",
         #[cfg(feature = "luau")]
         "__iter",

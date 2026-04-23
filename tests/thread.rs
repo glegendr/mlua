@@ -184,6 +184,7 @@ fn test_coroutine_from_closure() -> Result<()> {
         feature = "lua55",
         feature = "lua54",
         feature = "lua53",
+        feature = "lua53_wasm",
         feature = "lua52",
         feature = "luajit",
         feature = "luau"

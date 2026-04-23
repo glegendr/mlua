@@ -60,52 +60,124 @@ pub enum MetaMethod {
     /// The unary minus (`-`) operator.
     Unm,
     /// The floor division (//) operator.
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "luau"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "luau",
+        feature = "lua53_wasm"
+    ))]
     #[cfg_attr(
         docsrs,
-        doc(cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "luau")))
+        doc(cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "luau",
+            feature = "lua53_wasm"
+        )))
     )]
     IDiv,
     /// The bitwise AND (&) operator.
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "lua53_wasm"
+    ))]
     #[cfg_attr(
         docsrs,
-        doc(cfg(any(feature = "lua55", feature = "lua54", feature = "lua53")))
+        doc(cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        )))
     )]
     BAnd,
     /// The bitwise OR (|) operator.
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "lua53_wasm"
+    ))]
     #[cfg_attr(
         docsrs,
-        doc(cfg(any(feature = "lua55", feature = "lua54", feature = "lua53")))
+        doc(cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        )))
     )]
     BOr,
     /// The bitwise XOR (binary ~) operator.
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "lua53_wasm"
+    ))]
     #[cfg_attr(
         docsrs,
-        doc(cfg(any(feature = "lua55", feature = "lua54", feature = "lua53")))
+        doc(cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        )))
     )]
     BXor,
     /// The bitwise NOT (unary ~) operator.
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "lua53_wasm"
+    ))]
     #[cfg_attr(
         docsrs,
-        doc(cfg(any(feature = "lua55", feature = "lua54", feature = "lua53")))
+        doc(cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        )))
     )]
     BNot,
     /// The bitwise left shift (<<) operator.
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "lua53_wasm"
+    ))]
     #[cfg_attr(
         docsrs,
-        doc(cfg(any(feature = "lua55", feature = "lua54", feature = "lua53")))
+        doc(cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        )))
     )]
     Shl,
     /// The bitwise right shift (>>) operator.
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "lua53_wasm"
+    ))]
     #[cfg_attr(
         docsrs,
-        doc(cfg(any(feature = "lua55", feature = "lua54", feature = "lua53")))
+        doc(cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua53_wasm"
+        )))
     )]
     Shr,
     /// The string concatenation operator `..`.
@@ -140,6 +212,7 @@ pub enum MetaMethod {
         feature = "lua55",
         feature = "lua54",
         feature = "lua53",
+        feature = "lua53_wasm",
         feature = "lua52",
         feature = "luajit52"
     ))]
@@ -149,6 +222,7 @@ pub enum MetaMethod {
             feature = "lua55",
             feature = "lua54",
             feature = "lua53",
+            feature = "lua53_wasm",
             feature = "lua52",
             feature = "luajit52"
         )))
@@ -218,19 +292,55 @@ impl MetaMethod {
             MetaMethod::Pow => "__pow",
             MetaMethod::Unm => "__unm",
 
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "luau"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "luau",
+                feature = "lua53_wasm"
+            ))]
             MetaMethod::IDiv => "__idiv",
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua53_wasm"
+            ))]
             MetaMethod::BAnd => "__band",
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua53_wasm"
+            ))]
             MetaMethod::BOr => "__bor",
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua53_wasm"
+            ))]
             MetaMethod::BXor => "__bxor",
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua53_wasm"
+            ))]
             MetaMethod::BNot => "__bnot",
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua53_wasm"
+            ))]
             MetaMethod::Shl => "__shl",
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua53_wasm"
+            ))]
             MetaMethod::Shr => "__shr",
 
             MetaMethod::Concat => "__concat",
@@ -248,6 +358,7 @@ impl MetaMethod {
                 feature = "lua55",
                 feature = "lua54",
                 feature = "lua53",
+                feature = "lua53_wasm",
                 feature = "lua52",
                 feature = "luajit52"
             ))]

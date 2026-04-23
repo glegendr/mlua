@@ -141,6 +141,7 @@ fn test_metamethods() -> Result<()> {
                 feature = "lua55",
                 feature = "lua54",
                 feature = "lua53",
+                feature = "lua53_wasm",
                 feature = "lua52",
                 feature = "luajit52"
             ))]
@@ -174,6 +175,7 @@ fn test_metamethods() -> Result<()> {
         feature = "lua55",
         feature = "lua54",
         feature = "lua53",
+        feature = "lua53_wasm",
         feature = "lua52",
         feature = "luajit52"
     ))]
@@ -205,6 +207,7 @@ fn test_metamethods() -> Result<()> {
         feature = "lua55",
         feature = "lua54",
         feature = "lua53",
+        feature = "lua53_wasm",
         feature = "lua52",
         feature = "luajit52"
     ))]
@@ -671,7 +674,13 @@ fn test_metatable() -> Result<()> {
     globals.set("ud", MyUserData)?;
     lua.load(r#"assert(ud:my_type_name() == "MyUserData")"#).exec()?;
 
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "luau"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "luau",
+        feature = "lua53_wasm"
+    ))]
     lua.load(r#"assert(tostring(ud):sub(1, 11) == "MyUserData:")"#)
         .exec()?;
     #[cfg(feature = "luau")]

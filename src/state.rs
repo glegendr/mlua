@@ -361,7 +361,13 @@ impl Lua {
             ffi::luaL_loadstring as _,
             ffi::luaL_openlibs as _,
         ]);
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua52",
+            feature = "lua53_wasm"
+        ))]
         {
             _symbols.push(ffi::lua_getglobal as _);
             _symbols.push(ffi::lua_setglobal as _);
@@ -524,7 +530,13 @@ impl Lua {
     #[cfg(not(feature = "luau"))]
     #[cfg_attr(docsrs, doc(cfg(not(feature = "luau"))))]
     pub fn preload_module(&self, modname: &str, func: Function) -> Result<()> {
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua52",
+            feature = "lua53_wasm"
+        ))]
         let preload = unsafe {
             self.exec_raw::<Option<Table>>((), |state| {
                 ffi::lua_getfield(state, ffi::LUA_REGISTRYINDEX, ffi::LUA_PRELOAD_TABLE);
@@ -1074,6 +1086,7 @@ impl Lua {
         feature = "lua55",
         feature = "lua54",
         feature = "lua53",
+        feature = "lua53_wasm",
         feature = "lua52",
         feature = "luau"
     ))]
@@ -1178,7 +1191,13 @@ impl Lua {
                     _ => unreachable!(),
                 }
             },
-            #[cfg(any(feature = "lua53", feature = "lua52", feature = "lua51", feature = "luajit"))]
+            #[cfg(any(
+                feature = "lua53",
+                feature = "lua52",
+                feature = "lua51",
+                feature = "luajit",
+                feature = "lua53_wasm"
+            ))]
             GcMode::Incremental(params) => unsafe {
                 if let Some(v) = params.pause {
                     ffi::lua_gc(state, ffi::LUA_GCSETPAUSE, v);
@@ -1459,6 +1478,7 @@ impl Lua {
             feature = "lua55",
             feature = "lua54",
             feature = "lua53",
+            feature = "lua53_wasm",
             feature = "lua52"
         )) {
             ffi::lua_pushcfunction(lua.ref_thread(), func);
@@ -1721,7 +1741,13 @@ impl Lua {
         unsafe {
             let _sg = StackGuard::new(state);
             assert_stack(state, 1);
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua52",
+                feature = "lua53_wasm"
+            ))]
             ffi::lua_rawgeti(state, ffi::LUA_REGISTRYINDEX, ffi::LUA_RIDX_GLOBALS);
             #[cfg(any(feature = "lua51", feature = "luajit", feature = "luau"))]
             ffi::lua_pushvalue(state, ffi::LUA_GLOBALSINDEX);
@@ -1753,7 +1779,13 @@ impl Lua {
 
             lua.push_ref(&globals.0);
 
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua52",
+                feature = "lua53_wasm"
+            ))]
             ffi::lua_rawseti(state, ffi::LUA_REGISTRYINDEX, ffi::LUA_RIDX_GLOBALS);
             #[cfg(any(feature = "lua51", feature = "luajit", feature = "luau"))]
             ffi::lua_replace(state, ffi::LUA_GLOBALSINDEX);
@@ -2345,7 +2377,13 @@ impl Lua {
             })?,
         )?;
 
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua52",
+            feature = "lua53_wasm"
+        ))]
         let searchers: Table = package.get("searchers")?;
         #[cfg(any(feature = "lua51", feature = "luajit"))]
         let searchers: Table = package.get("loaders")?;

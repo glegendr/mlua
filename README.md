@@ -47,6 +47,7 @@ Below is a list of the available feature flags. By default `mlua` does not enabl
 * `luajit52`: enable [LuaJIT] support with partial compatibility with Lua 5.2
 * `luau`: enable [Luau] support (auto vendored mode)
 * `luau-jit`: enable [Luau] support with JIT backend.
+* `lua53_wasm`: enable Lua [5.3] for wasm32-unknown-unknown target, use `lua53` otherwise
 * `luau-vector4`: enable [Luau] support with 4-dimensional vector.
 * `vendored`: build static Lua(JIT) libraries from sources during `mlua` compilation using [lua-src] or [luajit-src]
 * `module`: enable module mode (building loadable `cdylib` library for Lua)

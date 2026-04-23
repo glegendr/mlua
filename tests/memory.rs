@@ -92,6 +92,7 @@ fn test_gc_control() -> Result<()> {
         feature = "lua55",
         feature = "lua54",
         feature = "lua53",
+        feature = "lua53_wasm",
         feature = "lua52",
         feature = "luau"
     ))]
@@ -130,7 +131,7 @@ fn test_gc_control() -> Result<()> {
     Ok(())
 }
 
-#[cfg(any(feature = "lua53", feature = "lua52"))]
+#[cfg(any(feature = "lua53", feature = "lua52", feature = "lua53_wasm"))]
 #[test]
 fn test_gc_error() {
     use mlua::Error;

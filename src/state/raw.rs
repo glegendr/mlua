@@ -159,7 +159,13 @@ impl RawLua {
                 (|| -> Result<()> {
                     let _sg = StackGuard::new(state);
 
-                    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+                    #[cfg(any(
+                        feature = "lua55",
+                        feature = "lua54",
+                        feature = "lua53",
+                        feature = "lua52",
+                        feature = "lua53_wasm"
+                    ))]
                     ffi::lua_rawgeti(state, ffi::LUA_REGISTRYINDEX, ffi::LUA_RIDX_GLOBALS);
                     #[cfg(any(feature = "lua51", feature = "luajit", feature = "luau"))]
                     ffi::lua_pushvalue(state, ffi::LUA_GLOBALSINDEX);
@@ -422,7 +428,12 @@ impl RawLua {
                 VmState::Yield => {
                     // Only count and line events can yield
                     if event == ffi::LUA_HOOKCOUNT || event == ffi::LUA_HOOKLINE {
-                        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+                        #[cfg(any(
+                            feature = "lua55",
+                            feature = "lua54",
+                            feature = "lua53",
+                            feature = "lua53_wasm"
+                        ))]
                         if ffi::lua_isyieldable(state) != 0 {
                             ffi::lua_yield(state, 0);
                         }
@@ -806,7 +817,12 @@ impl RawLua {
 
             ffi::LUA_TLIGHTUSERDATA => Value::LightUserData(LightUserData(ffi::lua_touserdata(state, idx))),
 
-            #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53"))]
+            #[cfg(any(
+                feature = "lua55",
+                feature = "lua54",
+                feature = "lua53",
+                feature = "lua53_wasm"
+            ))]
             ffi::LUA_TNUMBER => {
                 if ffi::lua_isinteger(state, idx) != 0 {
                     Value::Integer(ffi::lua_tointeger(state, idx))
@@ -944,7 +960,13 @@ impl RawLua {
         #[cfg(any(feature = "lua51", feature = "luajit", feature = "luau"))]
         ffi::lua_xpush(self.ref_thread(), state, ExtraData::ERROR_TRACEBACK_IDX);
         // Lua 5.2+ support light C functions that does not require extra allocations
-        #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "lua52"))]
+        #[cfg(any(
+            feature = "lua55",
+            feature = "lua54",
+            feature = "lua53",
+            feature = "lua52",
+            feature = "lua53_wasm"
+        ))]
         ffi::lua_pushcfunction(state, crate::util::error_traceback);
     }
 
@@ -1329,6 +1351,7 @@ impl RawLua {
             feature = "lua55",
             feature = "lua54",
             feature = "lua53",
+            feature = "lua53_wasm",
             feature = "lua52",
             feature = "luau"
         ))]
@@ -1548,6 +1571,7 @@ unsafe fn load_std_libs(state: *mut ffi::lua_State, libs: StdLib) -> Result<()> 
         feature = "lua55",
         feature = "lua54",
         feature = "lua53",
+        feature = "lua53_wasm",
         feature = "lua52",
         feature = "luau"
     ))]
@@ -1574,7 +1598,13 @@ unsafe fn load_std_libs(state: *mut ffi::lua_State, libs: StdLib) -> Result<()> 
         requiref(state, ffi::LUA_STRLIBNAME, ffi::luaopen_string, 1)?;
     }
 
-    #[cfg(any(feature = "lua55", feature = "lua54", feature = "lua53", feature = "luau"))]
+    #[cfg(any(
+        feature = "lua55",
+        feature = "lua54",
+        feature = "lua53",
+        feature = "luau",
+        feature = "lua53_wasm"
+    ))]
     {
         if libs.contains(StdLib::UTF8) {
             requiref(state, ffi::LUA_UTF8LIBNAME, ffi::luaopen_utf8, 1)?;
